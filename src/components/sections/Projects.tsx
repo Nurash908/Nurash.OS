@@ -124,46 +124,73 @@ export function Projects() {
                     whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.5, delay: i * 0.1 }}
-                    whileHover={{ x: 8 }}
+                    whileHover={{
+                      x: 10,
+                      scale: 1.015,
+                      transition: { duration: 0.25, ease: "easeOut" },
+                    }}
+                    whileTap={{ scale: 0.985 }}
                     className="group cursor-pointer"
                   >
-                    <div className="p-6 rounded-xl bg-[#111111]/50 border border-[#f5f5f0]/5 hover:border-amber-400/20 hover:bg-[#111111] transition-all duration-500 backdrop-blur-sm">
-                      <div className="flex items-center justify-between">
+                    <motion.div
+                      whileHover={{
+                        boxShadow: "0 10px 30px -10px rgba(251, 191, 36, 0.08)",
+                        borderColor: "rgba(251, 191, 36, 0.3)",
+                      }}
+                      className="p-6 rounded-xl bg-[#111111]/50 border border-[#f5f5f0]/5 hover:bg-[#141414] transition-all duration-300 backdrop-blur-sm relative overflow-hidden"
+                    >
+                      {/* Subtle ambient light sweep on hover */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-400/[0.03] to-transparent opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500"
+                        initial={{ x: "-100%" }}
+                        whileHover={{ x: "100%" }}
+                        transition={{ duration: 1, ease: "easeInOut" }}
+                      />
+
+                      <div className="flex items-center justify-between relative z-10">
                         <div className="flex items-center gap-4">
                           <motion.span
-                            whileHover={{ rotate: 15, scale: 1.2 }}
-                            className={`text-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-300 ${project.color}`}
+                            whileHover={{ rotate: 12, scale: 1.25 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                            className={`text-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-300 inline-block ${project.color}`}
                           >
                             {project.icon}
                           </motion.span>
                           <div>
-                            <h4 className="font-serif text-xl font-bold group-hover:text-amber-400 transition-colors duration-300">
+                            <h4 className="font-serif text-xl font-bold group-hover:text-amber-400 transition-colors duration-300 flex items-center gap-2">
                               {project.name}
                             </h4>
-                            <p className="text-sm text-[#f5f5f0]/30 mt-1">{project.desc}</p>
+                            <p className="text-sm text-[#f5f5f0]/40 group-hover:text-[#f5f5f0]/60 transition-colors duration-300 mt-1">{project.desc}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-4">
-                          <span className={`text-xs font-mono px-3 py-1.5 rounded-full ${
-                            project.status === "ACTIVE" 
-                              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                              : project.status === "BETA"
-                              ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-                              : project.status === "EVOLVED"
-                              ? "bg-sky-500/10 text-sky-400 border border-sky-500/20"
-                              : "bg-[#f5f5f0]/5 text-[#f5f5f0]/40 border border-[#f5f5f0]/10"
-                          }`}>
-                            {project.status}
-                          </span>
                           <motion.span
-                            whileHover={{ x: 8 }}
-                            className="text-[#f5f5f0]/20 group-hover:text-amber-400/60 transition-colors duration-300"
+                            whileHover={{ scale: 1.05 }}
+                            className={`text-xs font-mono px-3 py-1.5 rounded-full transition-colors duration-300 ${
+                              project.status === "ACTIVE" 
+                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:border-emerald-500/40"
+                                : project.status === "BETA"
+                                ? "bg-amber-500/10 text-amber-400 border border-amber-500/20 group-hover:border-amber-500/40"
+                                : project.status === "EVOLVED"
+                                ? "bg-sky-500/10 text-sky-400 border border-sky-500/20 group-hover:border-sky-500/40"
+                                : "bg-[#f5f5f0]/5 text-[#f5f5f0]/40 border border-[#f5f5f0]/10 group-hover:border-[#f5f5f0]/20"
+                            }`}
+                          >
+                            {project.status}
+                          </motion.span>
+                          <motion.span
+                            className="text-[#f5f5f0]/20 group-hover:text-amber-400 transition-colors duration-300 font-mono text-lg"
+                            variants={{
+                              hover: { x: 5 },
+                            }}
+                            whileHover={{ x: 5 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 20 }}
                           >
                             →
                           </motion.span>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   </motion.div>
                 ))}
               </div>

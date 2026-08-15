@@ -178,19 +178,26 @@ export function Now() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -12, scale: 1.02 }}
+              whileHover={{
+                y: -8,
+                scale: 1.018,
+                transition: { duration: 0.25, ease: "easeOut" },
+              }}
+              whileTap={{ scale: 0.985 }}
+              className="cursor-pointer"
             >
-              <Card className="group relative overflow-hidden bg-[#111111] border-[#f5f5f0]/10 hover:border-amber-400/30 transition-all duration-500 h-full">
+              <Card className="group relative overflow-hidden bg-[#111111] border-[#f5f5f0]/10 hover:border-amber-400/40 hover:shadow-[0_12px_40px_-15px_rgba(251,191,36,0.15)] transition-all duration-500 h-full">
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                 <CardContent className="p-8 flex flex-col h-full relative">
                   <div className="flex items-start justify-between mb-6">
                     <motion.span
-                      whileHover={{ rotate: 15, scale: 1.2 }}
-                      className="text-4xl"
+                      whileHover={{ rotate: 15, scale: 1.25 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                      className="text-4xl inline-block"
                     >
                       {project.icon}
                     </motion.span>
-                    <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 backdrop-blur-sm">
+                    <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 group-hover:border-emerald-500/40 backdrop-blur-sm transition-colors duration-300">
                       <motion.span
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ duration: 1, repeat: Infinity }}
@@ -210,7 +217,7 @@ export function Now() {
                   <div className="mb-6">
                     <div className="flex justify-between text-xs mb-2">
                       <span className="text-[#f5f5f0]/30 font-mono">PROGRESS</span>
-                      <span className="text-amber-400 font-mono">{project.progress}%</span>
+                      <span className="text-amber-400 font-mono font-bold">{project.progress}%</span>
                     </div>
                     <div className="h-1.5 bg-[#f5f5f0]/5 rounded-full overflow-hidden">
                       <motion.div
@@ -218,7 +225,7 @@ export function Now() {
                         whileInView={{ width: `${project.progress}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-                        className="h-full bg-gradient-to-r from-amber-400 to-amber-300 rounded-full"
+                        className="h-full bg-gradient-to-r from-amber-400 to-amber-300 rounded-full group-hover:shadow-[0_0_12px_rgba(251,191,36,0.6)] transition-shadow duration-300"
                       />
                     </div>
                   </div>
@@ -226,7 +233,7 @@ export function Now() {
                   {/* Quick stats */}
                   <div className="flex gap-4 mb-6">
                     {project.stats.map((stat) => (
-                      <span key={stat} className="text-xs text-[#f5f5f0]/30 font-mono">
+                      <span key={stat} className="text-xs text-[#f5f5f0]/30 font-mono group-hover:text-[#f5f5f0]/50 transition-colors duration-300">
                         {stat}
                       </span>
                     ))}
@@ -234,12 +241,13 @@ export function Now() {
 
                   <div className="mt-auto flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <span
+                      <motion.span
                         key={tag}
-                        className="text-xs font-mono px-3 py-1.5 rounded-full bg-[#f5f5f0]/5 text-[#f5f5f0]/50 border border-[#f5f5f0]/5"
+                        whileHover={{ scale: 1.05, y: -1 }}
+                        className="text-xs font-mono px-3 py-1.5 rounded-full bg-[#f5f5f0]/5 text-[#f5f5f0]/50 border border-[#f5f5f0]/5 group-hover:border-amber-400/20 group-hover:text-[#f5f5f0]/70 transition-all duration-300"
                       >
                         {tag}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
                 </CardContent>
