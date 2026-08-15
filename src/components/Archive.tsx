@@ -1,0 +1,171 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { Now } from "@/components/sections/Now";
+import { Projects } from "@/components/sections/Projects";
+import { Experiments } from "@/components/sections/Experiments";
+import { Journey } from "@/components/sections/Journey";
+import { Ideas } from "@/components/sections/Ideas";
+import { Impact } from "@/components/sections/Impact";
+import { Contact } from "@/components/sections/Contact";
+import { Nexus } from "@/components/Nexus";
+import { BuilderDNA } from "@/components/sections/BuilderDNA";
+import { ProofOfWork } from "@/components/sections/ProofOfWork";
+import { LabNotebook } from "@/components/sections/LabNotebook";
+import { Dream } from "@/components/sections/Dream";
+import { Philosophy } from "@/components/sections/Philosophy";
+import { Stats } from "@/components/sections/Stats";
+import { Skills } from "@/components/sections/Skills";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { Footer } from "@/components/Footer";
+
+const sections = [
+  { id: "now", label: "01", name: "NOW" },
+  { id: "projects", label: "02", name: "PROJECTS" },
+  { id: "experiments", label: "03", name: "EXPERIMENTS" },
+  { id: "journey", label: "04", name: "JOURNEY" },
+  { id: "ideas", label: "05", name: "IDEAS" },
+  { id: "impact", label: "06", name: "IMPACT" },
+  { id: "contact", label: "07", name: "CONTACT" },
+];
+
+export function Archive() {
+  const [active, setActive] = useState("now");
+  const [showScrollHint, setShowScrollHint] = useState(true);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) setShowScrollHint(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f5f0]">
+      {/* Progress bar with glow */}
+      <motion.div
+        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 origin-left z-[60]"
+      />
+      <motion.div
+        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-[6px] bg-amber-400/20 blur-md origin-left z-[59]"
+      />
+
+      {/* Cinematic grain */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[55]" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noise\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"4\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noise)\"/%3E%3C/svg%3E')" }} />
+
+      {/* Scroll hint */}
+      <AnimatePresence>
+        {showScrollHint && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3"
+          >
+            <motion.span
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="font-mono text-xs text-[#f5f5f0]/30 tracking-[0.3em]"
+            >
+              SCROLL
+            </motion.span>
+            <motion.div
+              animate={{ y: [0, 12, 0], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-px h-10 bg-gradient-to-b from-amber-400/60 to-transparent"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-[#f5f5f0]/5">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+          <motion.span
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="font-serif text-sm font-bold tracking-[0.2em] text-[#f5f5f0]/80"
+          >
+            NURASH.OS
+          </motion.span>
+
+          <div className="hidden md:flex items-center gap-6">
+            {sections.map((s) => (
+              <motion.button
+                key={s.id}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + sections.indexOf(s) * 0.05 }}
+                onClick={() => {
+                  setActive(s.id);
+                  document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`group flex items-center gap-2 text-xs font-mono tracking-wider transition-all duration-300 ${
+                  active === s.id
+                    ? "text-amber-400"
+                    : "text-[#f5f5f0]/30 hover:text-[#f5f5f0]/70"
+                }`}
+              >
+                <span className={`text-[10px] ${active === s.id ? "text-amber-400" : "text-[#f5f5f0]/20"}`}>
+                  {s.label}
+                </span>
+                {s.name}
+                <motion.span
+                  animate={{ width: active === s.id ? 16 : 0 }}
+                  className="h-px bg-amber-400"
+                />
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      <main>
+        <Now />
+        <Stats />
+        <Projects />
+        <Experiments />
+        <Journey />
+        <Ideas />
+        <ProofOfWork />
+        <BuilderDNA />
+        <LabNotebook />
+        <Dream />
+        <Philosophy />
+        <Skills />
+        <Testimonials />
+        <Impact />
+        <Contact />
+      </main>
+
+      <Footer />
+      <Nexus />
+    </div>
+  );
+}

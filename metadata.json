@@ -1,0 +1,6 @@
+{
+  "name": "Nurash.OS - The Builder's Archive",
+  "description": "Interactive portfolio and builder's archive showcasing projects, experiments, milestones, ideas, and impact by Nurash Weerasinghe.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
