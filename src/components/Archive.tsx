@@ -19,6 +19,8 @@ import { Stats } from "@/components/sections/Stats";
 import { Skills } from "@/components/sections/Skills";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Footer } from "@/components/Footer";
+import { Logo } from "@/components/ui/Logo";
+import { BackToTop } from "@/components/BackToTop";
 
 const sections = [
   { id: "now", label: "01", name: "NOW" },
@@ -106,14 +108,18 @@ export function Archive() {
 
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-[#f5f5f0]/5">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <motion.span
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="font-serif text-sm font-bold tracking-[0.2em] text-[#f5f5f0]/80"
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            NURASH.OS
-          </motion.span>
+            <Logo size={26} />
+            <span className="font-serif text-sm font-bold tracking-[0.2em] text-[#f5f5f0]/90">
+              NURASH.OS
+            </span>
+          </motion.div>
 
           <div className="hidden md:flex items-center gap-6">
             {sections.map((s) => (
@@ -165,6 +171,7 @@ export function Archive() {
       </main>
 
       <Footer />
+      <BackToTop />
       <Nexus />
     </div>
   );
