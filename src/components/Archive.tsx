@@ -35,8 +35,25 @@ const sections = [
 export function Archive() {
   const [active, setActive] = useState("now");
   const [showScrollHint, setShowScrollHint] = useState(true);
+  const [isProjectsLoading, setIsProjectsLoading] = useState(true);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    // Simulate initial project database hydration & sync
+    const timer = setTimeout(() => {
+      setIsProjectsLoading(false);
+    }, 1400);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleReloadProjects = () => {
+    setIsProjectsLoading(true);
+    setTimeout(() => {
+      setIsProjectsLoading(false);
+    }, 1200);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -155,7 +172,7 @@ export function Archive() {
       <main>
         <Now />
         <Stats />
-        <Projects />
+        <Projects isLoading={isProjectsLoading} onReload={handleReloadProjects} />
         <Experiments />
         <Journey />
         <Ideas />
