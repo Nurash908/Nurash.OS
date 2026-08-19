@@ -48,7 +48,7 @@ export function BackToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.7, y: 20 }}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          className="fixed bottom-24 right-6 z-40 flex items-center gap-2"
+          className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-40 flex items-center gap-2"
         >
           {/* Tooltip on hover */}
           <AnimatePresence>
@@ -75,7 +75,7 @@ export function BackToTop() {
             onMouseLeave={() => setHovered(false)}
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.92 }}
-            className="group relative w-12 h-12 rounded-full bg-[#121214]/90 hover:bg-[#1c1917] border border-amber-400/30 hover:border-amber-400/80 backdrop-blur-md text-amber-400 flex items-center justify-center shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_30px_rgba(251,191,36,0.3)] transition-all duration-300 cursor-pointer"
+            className="group relative w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#121214]/90 hover:bg-[#1c1917] border border-amber-400/30 hover:border-amber-400/80 backdrop-blur-md text-amber-400 flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.7)] hover:shadow-[0_0_25px_rgba(251,191,36,0.3)] transition-all duration-300 cursor-pointer active:scale-95"
           >
             {/* Ambient inner glow */}
             <span
@@ -85,7 +85,7 @@ export function BackToTop() {
 
             {/* Upward Arrow Icon */}
             <ArrowUp
-              className="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5"
+              className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:-translate-y-0.5"
               strokeWidth={2.25}
             />
           </motion.button>
